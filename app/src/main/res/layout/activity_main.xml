@@ -41,6 +41,8 @@
             android:layout_height="wrap_content"
             android:text="@string/start_ai_assistant"
             android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp"
             style="@style/Widget.Material3.Button.TonalButton" />
     </LinearLayout>
 

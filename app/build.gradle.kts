@@ -42,6 +42,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-service:2.6.1")
     implementation(libs.material)
     implementation(libs.litert.lm)
+    implementation("com.google.mlkit:text-recognition:16.0.1")
 
     // Compose
     implementation(platform("androidx.compose:compose-bom:2024.11.00"))

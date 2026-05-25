@@ -61,10 +61,16 @@ class MainActivity : AppCompatActivity() {
                     Uri.parse("package:$packageName")
                 )
                 startActivity(intent)
+            } else if (!isAccessibilityServiceEnabled()) {
+                Toast.makeText(this, "Please enable AI Assistant in Accessibility Settings", Toast.LENGTH_LONG).show()
+                val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                startActivity(intent)
             } else {
+                // Accessibility Service is enabled, it should be running
                 val serviceIntent = Intent(this, FloatingAssistantService::class.java)
+                serviceIntent.action = "ACTION_SHOW_FLOATING"
                 startService(serviceIntent)
-                Toast.makeText(this, "Floating Assistant Started", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "AI Assistant Active", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -108,6 +114,19 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         chatInference.stopResponse()
+    }
+
+    private fun isAccessibilityServiceEnabled(): Boolean {
+        val expectedComponentName = android.content.ComponentName(this, FloatingAssistantService::class.java)
+        val enabledServices = Settings.Secure.getString(contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES) ?: return false
+        val colonSplitter = android.text.TextUtils.SimpleStringSplitter(':')
+        colonSplitter.setString(enabledServices)
+        while (colonSplitter.hasNext()) {
+            val componentNameString = colonSplitter.next()
+            val enabledService = android.content.ComponentName.unflattenFromString(componentNameString)
+            if (enabledService != null && enabledService == expectedComponentName) return true
+        }
+        return false
     }
 
     private fun checkStoragePermission(): Boolean {
