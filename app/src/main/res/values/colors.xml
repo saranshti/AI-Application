@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="wa_bg_dark">#0B141B</color>
+    <color name="wa_user_bubble">#005C4B</color>
+    <color name="wa_bot_bubble">#202C33</color>
+    <color name="wa_text_primary">#E9EDEF</color>
+    <color name="wa_text_secondary">#8696A0</color>
+    <color name="wa_input_bg">#2A3942</color>
+    <color name="wa_accent">#00A884</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
